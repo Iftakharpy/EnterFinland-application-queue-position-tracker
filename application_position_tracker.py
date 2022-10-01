@@ -13,6 +13,7 @@ from matplotlib import pyplot as plt
 
 if sys.argv.length<2:
     print("Please provide your diary number(e.g. 12345/123/1234\") as the first argument.")
+    exit(1)
 
 DIARY_NUMBER = sys.argv[1]
 
