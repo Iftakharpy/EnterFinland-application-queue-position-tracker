@@ -11,12 +11,12 @@ from matplotlib import pyplot as plt
 # from adjustText import adjust_text
 
 
-if len(sys.argv)<2:
-    print("Please provide your diary number(e.g. 12345/123/1234\") as the first argument.")
-    exit(1)
+# if len(sys.argv)<2:
+#     print("Please provide your diary number(e.g. 12345/123/1234\") as the first argument.")
+#     exit(1)
 
-DIARY_NUMBER = sys.argv[1]
-
+# DIARY_NUMBER = sys.argv[1]
+DIARY_NUMBER = "31275/110/2022"
 
 CURRENT_DIR = Path(__file__).parent
 QUERY_LOG_FILE = CURRENT_DIR / 'enter_finland_queue_position.log'
@@ -142,8 +142,7 @@ def get_unique_plot_values(log_file_path=QUERY_LOG_FILE):
       elif position!=last_position:
         pass
       elif get_sudo_date(query_time)!=get_sudo_date(last_date):
-        if delta.days>=1:
-          pass
+        if delta.days>=1 or delta.seconds>(60*60*24)-60:pass
         else: continue
         # elif 4<=round(delta.total_seconds()/60/60)<=5:
         #   continue
