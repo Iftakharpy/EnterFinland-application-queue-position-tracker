@@ -11,12 +11,11 @@ from matplotlib import pyplot as plt
 # from adjustText import adjust_text
 
 
-# if len(sys.argv)<2:
-#     print("Please provide your diary number(e.g. 12345/123/1234\") as the first argument.")
-#     exit(1)
+if len(sys.argv)<2:
+    print("Please provide your diary number(e.g. 12345/123/1234\") as the first argument.")
+    exit(1)
 
-# DIARY_NUMBER = sys.argv[1]
-DIARY_NUMBER = "31275/110/2022"
+DIARY_NUMBER = sys.argv[1]
 
 CURRENT_DIR = Path(__file__).parent
 QUERY_LOG_FILE = CURRENT_DIR / 'enter_finland_queue_position.log'
