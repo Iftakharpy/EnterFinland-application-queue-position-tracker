@@ -158,11 +158,9 @@ def get_unique_plot_values(log_file_path=QUERY_LOG_FILE):
 
 def create_plot(file_path, plot_x_values, plot_y_values, dpi=300):
   plt.clf()
-  if 100<=len(plot_x_values)<=200:
-    plt.figure(figsize=(0.1*len(plot_x_values), 5))
-  elif len(plot_x_values)>200:
-    plt.figure(figsize=(20,20))
-  else: pass
+  figure_width = len(plot_x_values)*0.5 # inches
+  figure_height = (max(plot_y_values)-min(plot_y_values))//16 # inches
+  plt.figure(figsize=(figure_width, figure_height))
 
   x_label_date_format = '%a %d %b'
   # Initialize visualization
@@ -175,10 +173,12 @@ def create_plot(file_path, plot_x_values, plot_y_values, dpi=300):
   for plot_position, plot_date, query_time in zip(plot_y_values, plot_x_values, transformed_plot_x_values):
     label = plt.text(query_time, plot_position+0.3, f"{plot_position}")
     plot_text_labels.append(label)
+    label.set_fontsize(8)
 
   # Customize plot
   plt.title("Queue Positions vs Dates", fontsize=16)
-  plt.xticks(rotation=25)
+  plt.xticks(rotation=90, fontsize=10)
+  plt.yticks(fontsize=10)
   plt.xlabel('Dates')
   plt.ylabel('Positions')
   plt.grid()
