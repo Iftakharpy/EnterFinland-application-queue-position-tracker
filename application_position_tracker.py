@@ -1,5 +1,6 @@
 import sys
 import json
+import math
 import requests
 from csv import DictReader
 from pathlib import Path
@@ -124,32 +125,14 @@ def get_unique_plot_values(log_file_path=QUERY_LOG_FILE):
 
   plot_position_values = []
   plot_date_values = []
-  plotted_dates = set()
 
   for sudo_date, plot_points in date_position_map.items():
-    for plot_point in plot_points:
-      query_time = plot_point.query_time
-      position = plot_point.position
+    # Only plot latest known position for a date
+    plot_position = plot_points[-1].position
+    plot_query_time = plot_points[-1].query_time
 
-      if len(plot_date_values)!=0:
-        last_date = plot_date_values[-1]
-        last_position = plot_position_values[-1]
-        delta = query_time-last_date
-
-      if len(plot_position_values)==0:
-        pass
-      elif position!=last_position:
-        pass
-      elif get_sudo_date(query_time)!=get_sudo_date(last_date):
-        if delta.days>=1 or delta.seconds>(60*60*24)-60:pass
-        else: continue
-        # elif 4<=round(delta.total_seconds()/60/60)<=5:
-        #   continue
-      else:
-        continue
-      plot_position_values.append(position)
-      plot_date_values.append(query_time)
-      plotted_dates.add(get_sudo_date(query_time))
+    plot_position_values.append(plot_position)
+    plot_date_values.append(plot_query_time)
 
   return (plot_date_values, plot_position_values)
 
